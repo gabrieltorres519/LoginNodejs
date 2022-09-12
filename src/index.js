@@ -1,8 +1,11 @@
 const express = require('express');
 const engine = require('ejs-mate'); // motor de vistas para render desde servidor (engine)
+const path = require('path'); // Para que no importe dónde situamos el archivo en el servidor 
 
 // Usando el método de express 
 const app = express();
+
+app.set('views',path.join(__dirname,'views'));// Desde views para atrás en el path (viene de express), una vez encontrada se concatena su nombre para competar la ruta de la carpeta
 
 app.engine('ejs',engine); // Todos los ejs pertenecerán a la librería ejs-mate
 app.set('view engine','ejs'); // Se setea el motor de renderizado como el designado en app.engine
