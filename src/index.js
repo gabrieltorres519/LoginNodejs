@@ -1,7 +1,11 @@
 const express = require('express');
+const engine = require('ejs-mate'); // motor de vistas para render desde servidor (engine)
 
 // Usando el método de express 
 const app = express();
+
+app.engine('ejs',engine); // Todos los ejs pertenecerán a la librería ejs-mate
+app.set('view engine','ejs'); // Se setea el motor de renderizado como el designado en app.engine
 
 //Configuración de puertos 
 app.set('port',process.env.PORT || 3000);
