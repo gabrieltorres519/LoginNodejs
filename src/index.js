@@ -15,8 +15,11 @@ app.set('port',process.env.PORT || 3000);
 // process.env.PORT se trata de asignar dinámicamente un puerto que esté disponible
 
 
+//Rutas
+
+app.use('/',require('./routes/index')); //Cuando el usuario está en la raiz en navegador se muestra lo que se renderise en index de rutas 
+
 //Iniciando servidor 
 app.listen(app.get('port'),()=>{
     console.log('SERVIDOR EN PUERTO ',app.get('port')) // Se imprime el puerto 
 }); // Se toma el puerto que se obtuvo dinámicamente
-
