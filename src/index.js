@@ -3,8 +3,9 @@ const engine = require('ejs-mate'); // motor de vistas para render desde servido
 const path = require('path'); // Para que no importe dónde situamos el archivo en el servidor 
 const morgan = require('morgan'); 
 
-//--- Usando el método de express 
+//--- Usando el método de express (requerimientos o inicializaciones)
 const app = express();
+require('./database'); 
 
 app.set('views',path.join(__dirname,'views'));// Desde views para atrás en el path (viene de express), una vez encontrada se concatena su nombre para competar la ruta de la carpeta
 
