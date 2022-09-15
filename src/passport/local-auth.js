@@ -4,6 +4,14 @@ const localStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
+passport.serializeUser((user,done)=>{
+    done(null, user.id);
+}); //Encriptado
+
+passport.serializeUser((user,done)=>{
+    User.findById(id);
+}); //Desencriptado
+
 // Opción 1 con try catch 
 
 // passport.use('local-signup', new localStrategy({
