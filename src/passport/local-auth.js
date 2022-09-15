@@ -4,12 +4,13 @@ const localStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
-passport.serializeUser((user,done)=>{
-    done(null, user.id);
+passport.serializeUser(async (user,done)=>{
+    const user = await done(null, user.id);
+    done(null,user); 
 }); //Encriptado
 
-passport.serializeUser((user,done)=>{
-    User.findById(id);
+passport.serializeUser(async (user,done)=>{
+    const user = await User.findById(id);
 }); //Desencriptado
 
 // Opción 1 con try catch 
