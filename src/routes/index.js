@@ -11,7 +11,8 @@ router.get('/signup',(req,res,next)=>{
 });
 
 router.post('/signup',(req,res,next)=>{
-
+ console.log(req.body); // Imprimiendo en consola de servidor lo que se envió en el formulario (como objeto)
+ res.send('recibido'); // Lo que se renderiza en la vista
 });
 
 router.get('/signin',(req,res,next)=>{
