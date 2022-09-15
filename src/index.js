@@ -17,7 +17,8 @@ app.set('port',process.env.PORT || 3000);
 
 //--- Middleware (variable que guarda herramientas a utilizar y que ya solo se requieren)
 
-app.use(morgan('dev'))
+app.use(morgan('dev')) //Qué método se usa en la ruta y cuanto tarda la comunicación
+app.use(express.urlencoded({extended:false})) // Para que morgan solo muestre un resúmen de la conectividad
 
 //--- Rutas
 
