@@ -1,11 +1,13 @@
 const express = require('express');
 const engine = require('ejs-mate'); // motor de vistas para render desde servidor (engine)
 const path = require('path'); // Para que no importe dónde situamos el archivo en el servidor 
-const morgan = require('morgan'); 
+const morgan = require('morgan');
+const passport = require('passport'); 
 
 //--- Usando el método de express (requerimientos o inicializaciones)
 const app = express();
 require('./database'); 
+require('./passport/local-auth'); // Para utilizar el archivo de autenticación que configuramos
 
 app.set('views',path.join(__dirname,'views'));// Desde views para atrás en el path (viene de express), una vez encontrada se concatena su nombre para competar la ruta de la carpeta
 
@@ -20,6 +22,8 @@ app.set('port',process.env.PORT || 3000);
 
 app.use(morgan('dev')) //Qué método se usa en la ruta y cuanto tarda la comunicación
 app.use(express.urlencoded({extended:false})) // Para que morgan solo muestre un resúmen de la conectividad
+app.use(passport.initialize()) // se inicia passport 
+app.use(passport.session())
 
 //--- Rutas
 
