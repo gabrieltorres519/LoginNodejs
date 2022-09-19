@@ -4,10 +4,14 @@ const localStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
-passport.serializeUser(async (user,done)=>{
-    const user1 = await done(null, user1.id);
-    done(null,user); 
-}); //Encriptado
+// passport.serializeUser(async (user,done)=>{
+//     const user1 = await done(null, user1.id);
+//     done(null,user); 
+// }); //Encriptado
+
+passport.serializeUser((user,done)=>{
+    done(null,user.id); 
+}); //Encriptado es síncrono pues se encripta y luego se envía
 
 passport.serializeUser(async (user,done)=>{
     const user2 = await User.findById(id);

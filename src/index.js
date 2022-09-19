@@ -2,7 +2,8 @@ const express = require('express');
 const engine = require('ejs-mate'); // motor de vistas para render desde servidor (engine)
 const path = require('path'); // Para que no importe dónde situamos el archivo en el servidor 
 const morgan = require('morgan');
-const passport = require('passport'); 
+const passport = require('passport');
+const session = require('express-session'); 
 
 //--- Usando el método de express (requerimientos o inicializaciones)
 const app = express();
@@ -22,8 +23,14 @@ app.set('port',process.env.PORT || 3000);
 
 app.use(morgan('dev')) //Qué método se usa en la ruta y cuanto tarda la comunicación
 app.use(express.urlencoded({extended:false})) // Para que morgan solo muestre un resúmen de la conectividad
+app.use(session({
+    secret: 'miclave', // no lo vuelve a pedir, es solo para generar la semilla
+    resave: false, // Para que no genere automáticamente claves nuevas y poder jugar con la clave secret
+    saveUninitialized: false, // Guardado de sesiones en false para ahorrar espacio en caché
+})) //manipular sesiones antes de encriptar
 app.use(passport.initialize()) // se inicia passport 
-app.use(passport.session())
+
+
 
 //--- Rutas
 
