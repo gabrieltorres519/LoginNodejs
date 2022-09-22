@@ -29,7 +29,7 @@ app.use(session({
     saveUninitialized: false, // Guardado de sesiones en false para ahorrar espacio en caché
 })) //manipular sesiones antes de encriptar
 app.use(passport.initialize()) // se inicia passport 
-
+app.use(passport.session())
 
 
 //--- Rutas

@@ -13,8 +13,9 @@ passport.serializeUser((user,done)=>{
     done(null,user.id); 
 }); //Encriptado es síncrono pues se encripta y luego se envía
 
-passport.serializeUser(async (user,done)=>{
+passport.deserializeUser(async (id,done)=>{
     const user2 = await User.findById(id);
+    // done(null,user); 
 }); //Desencriptado
 
 // Opción 1 con try catch 
@@ -44,6 +45,6 @@ passport.use('local-signup', new localStrategy({
     user.email = email;
     user.password = password; // Pasamos al modelo los datos recibidos en el formulario
     await user.save()
-    done(null,use)
+    done(null,user)
 } // Si son correctos 'done' y se ejecuta lo de la función flecha 
 )); //Asegurar usuario y contraseña (el nombre local-signup lo ponemos nosotros)

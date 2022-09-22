@@ -33,7 +33,7 @@ router.post('/signin',(req,res,next)=>{
 });
 
 router.get('/profile',(req,res,next)=>{
-
+    
 });
 
 module.exports = router
