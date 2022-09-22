@@ -15,7 +15,7 @@ passport.serializeUser((user,done)=>{
 
 passport.deserializeUser(async (id,done)=>{
     const user2 = await User.findById(id);
-    // done(null,user); 
+    done(null,user2); 
 }); //Desencriptado
 
 // Opción 1 con try catch 
@@ -41,10 +41,11 @@ passport.use('local-signup', new localStrategy({
     passwordField: 'password',
     passReqToCallback:true // Una ves verificados los campos en el formulario se realiza una autenticación por método y no por token (file)
 },async (req, email, password, done)=>{
-    const user = new User(); // Creando objeto User usando el modelo recién creado
-    user.email = email;
-    user.password = password; // Pasamos al modelo los datos recibidos en el formulario
-    await user.save()
-    done(null,user)
+    const newUser = new User(); // Creando objeto User usando el modelo recién creado
+    newUser.email = email;
+    //newUser.password = newUser.encryptPassword(password);
+    newUser.password = password; // Pasamos al modelo los datos recibidos en el formulario
+    await newUser.save()
+    done(null,newUser)
 } // Si son correctos 'done' y se ejecuta lo de la función flecha 
 )); //Asegurar usuario y contraseña (el nombre local-signup lo ponemos nosotros)
