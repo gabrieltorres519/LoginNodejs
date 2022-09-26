@@ -4,6 +4,7 @@ const path = require('path'); // Para que no importe dónde situamos el archivo 
 const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session'); 
+const flash = require('connect-flash'); // Para mandar mensajes a los usuarios sobre procesos realizados
 
 //--- Usando el método de express (requerimientos o inicializaciones)
 const app = express();
@@ -28,8 +29,13 @@ app.use(session({
     resave: false, // Para que no genere automáticamente claves nuevas y poder jugar con la clave secret
     saveUninitialized: false, // Guardado de sesiones en false para ahorrar espacio en caché
 })) //manipular sesiones antes de encriptar
+app.use(flash());
 app.use(passport.initialize()) // se inicia passport 
 app.use(passport.session())
+app.use((req, res, next)=>{
+    app.locals.signupMessage = req.flash('signupMessage'); // Usando el mensaje generado en localAuth para cuando un usuario ya está registrado y no se repita
+    next();
+});
 
 
 //--- Rutas
