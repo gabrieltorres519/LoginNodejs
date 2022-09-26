@@ -25,14 +25,30 @@ router.post('/signup', passport.authenticate('local-signup',{
 );
 
 router.get('/signin',(req,res,next)=>{
-
+ res.render('signin')
 });
 
-router.post('/signin',(req,res,next)=>{
+router.post('/signin', passport.authenticate('local-signin',{
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    passReqToCallback: true  // Se refiere a que aunque las constraseñas no hagan match se encripte la contrasela y se devuelva encriptada
+}));
 
-});
+router.get('/logout',(req,res,next)=>{
+    req.logOut();
+    res.redirect('/');
+})
 
-router.get('/profile',(req,res,next)=>{
+function isAuthenticated(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    //else{
+        res.redirect('/')
+    //}
+}
+
+router.get('/profile', isAuthenticated ,(req,res,next)=>{
     res.render('profile');
 });
 
