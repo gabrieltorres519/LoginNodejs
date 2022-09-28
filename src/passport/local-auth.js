@@ -1,6 +1,5 @@
 const e = require('connect-flash');
 const passport = require('passport');
-const user = require('../models/user');
 const localStrategy = require('passport-local').Strategy; 
 //Strategy simple para la autenticación local (encriptado)
 
@@ -44,15 +43,15 @@ passport.use('local-signup', new localStrategy({
     passReqToCallback:true // Una ves verificados los campos en el formulario se realiza una autenticación por método y no por token (file)
 },async (req, email, password, done)=>{
 
-    // const user = await User.findOne(email);
+    const user = await User.findOne({'email': email});
 
     if(user){ // Trae todo el pull de usuarios
         return done(null,false,req.flash('signupMessage','Usuario ya registrado')) //Cuando ya existe se retorna algún dato pues se encontrpon una coincidencia (ya se ha registrado ese usuario)
     }else{ // El nombre signupMessage lo inventamos, es el nombre de la variable que se requiere en el index raiz
         const newUser = new User(); // Creando objeto User usando el modelo recién creado
         newUser.email = email;
-        //newUser.password = newUser.encryptPassword(password);
-        newUser.password = password; // Pasamos al modelo los datos recibidos en el formulario
+        newUser.password = newUser.encryptPassword(password);
+        //newUser.password = password; // Pasamos al modelo los datos recibidos en el formulario
         await newUser.save()
         done(null,newUser)
     }
@@ -69,7 +68,7 @@ passport.use('local-signin', new localStrategy({
     passReqToCallback:true // Una ves verificados los campos en el formulario se realiza una autenticación por método y no por token (file)
 },async (req, email, password, done)=>{
 
-    const user = await User.findOne({email:email});
+    const user = await User.findOne({email: email});
 
     if(!user){
         return done(null,false,req.flash('signinMessage','Usuario no encontrado')) //Cuando intenta hacer login

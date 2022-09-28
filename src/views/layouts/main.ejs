@@ -11,9 +11,15 @@
     <!-- Se trata del archivo principal que se pintará de manera dinámica en el index -->
 
     <!-- El contenido dependera de la siguiente variable, sintaxis ejs para variables-->
-    <% if(signupMessage){ %>
+    <% if(signupMessage.length > 0){ %>
         <div  class="alert alert-danger">
             <%= signupMessage %>
+        </div>
+    <% } %> 
+
+    <% if(signinMessage.length > 0){ %>
+        <div  class="alert alert-danger">
+            <%= signinMessage %>
         </div>
     <% } %> 
     

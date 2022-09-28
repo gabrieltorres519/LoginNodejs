@@ -30,26 +30,29 @@ router.get('/signin',(req,res,next)=>{
 
 router.post('/signin', passport.authenticate('local-signin',{
     successRedirect: '/profile',
-    failureRedirect: '/signup',
+    failureRedirect: '/signin',
     passReqToCallback: true  // Se refiere a que aunque las constraseñas no hagan match se encripte la contrasela y se devuelva encriptada
 }));
 
 router.get('/logout',(req,res,next)=>{
-    req.logOut();
-    res.redirect('/');
-})
+    req.logOut(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+    //res.redirect('/');
+});
+
+router.get('/profile', isAuthenticated ,(req,res,next)=>{
+    res.render('profile');
+});
 
 function isAuthenticated(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
     //else{
-        res.redirect('/')
+    res.redirect('/')
     //}
 }
-
-router.get('/profile', isAuthenticated ,(req,res,next)=>{
-    res.render('profile');
-});
 
 module.exports = router
