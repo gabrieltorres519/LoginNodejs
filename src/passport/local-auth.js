@@ -40,7 +40,10 @@ passport.deserializeUser(async (id,done)=>{
 passport.use('local-signup', new localStrategy({
     usernameField: 'email', //Nombre del campo en el formulario que se usará para la autenticación ('name' en el formulairo)
     passwordField: 'password',
-    passReqToCallback:true // Una ves verificados los campos en el formulario se realiza una autenticación por método y no por token (file)
+    nameField: 'name',
+    phoneField: 'phone',
+    profileField: 'profile',
+    passReqToCallback:true // Una vez verificados los campos en el formulario se realiza una autenticación por método y no por token (file)
 },async (req, email, password, done)=>{
 
     const user = await User.findOne({'email': email});
@@ -51,7 +54,11 @@ passport.use('local-signup', new localStrategy({
         const newUser = new User(); // Creando objeto User usando el modelo recién creado
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        newUser.name = req.body.name;
+        newUser.phone = req.body.phone;
+        newUser.profile = req.body.profile;
         //newUser.password = password; // Pasamos al modelo los datos recibidos en el formulario
+        console.log(newUser)
         await newUser.save()
         done(null,newUser)
     }
