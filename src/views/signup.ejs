@@ -74,10 +74,15 @@
                     <label for="phone" class="form-label" style="color:#000000">Teléfono</label>
                     <input type="number" name="phone" placeholder="Inserte su número">
                 </div>
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <label for="profile" class="form-label" style="color:#000000">Perfil</label>
                     <input type="text" name="profile" placeholder="Seleccione su tipo de usuario">
-                </div>
+                </div> -->
+                <label for="profile">Perfil</label>
+                <select id="profile" name="profile">
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
+                </select>
                 <div class="d-grid">
                   <button type="submit" class="btn btn-dark w3-button w3-deep-purple">
                     Registrarse
