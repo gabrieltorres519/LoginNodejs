@@ -35,9 +35,10 @@ router.post('/signin', passport.authenticate('local-signin',{
 router.get('/logout',(req,res,next)=>{
     req.logOut(function(err) {
         if (err) { return next(err); }
-        req.session.destroy();
-        res.redirect('/signin');
     });
+    //req.session.destroy();
+    res.redirect('/signin');
+
     //res.redirect('/');
 });
 

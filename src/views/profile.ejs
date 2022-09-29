@@ -4,16 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+       html, body {
+            height: 100%;
+            background: linear-gradient(to bottom, blue, white);
+        }
+
+        html {
+            display: table;
+            margin: auto;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            background: linear-gradient(to bottom, blue, white);
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
     <% if(usuario.profile == 'Admin'){ %>
-        <% layout('layouts/adminProfile.ejs') %>
-    <% } %> 
-    
+        <h1>Bienvenido a tu perfil</h1>
+        <h3>¡ <%= usuario.name %> !</h3>
+        <!-- <h2>¡ <%= usuario.email %> !</h2> -->
+            <div  class="alert alert-danger">
+                <p>Eres un Administrador</p>
+            </div>
+
+        <form action="/logout" method="get">
+            <button type="submit">
+                Salir
+            </button>    
+        </form>
+    <% } %>
+
     <% if(usuario.profile == 'User'){ %>
-        <% layout('layouts/userProfile.ejs') %>
-    <% } %> 
+        <h1>Bienvenido a tu perfil</h1>
+        <h3>¡ <%= usuario.name %> !</h3>
+        <!-- <h2>¡ <%= usuario.email %> !</h2> -->
+            <div  class="alert alert-danger">
+                <p>Eres un Usuairo Común</p>
+            </div>
+            <form action="/logout" method="get">
+                <button type="submit">
+                    Salir
+                </button>
+            </form>
+    <% } %>
 </body>
 </html>
 
